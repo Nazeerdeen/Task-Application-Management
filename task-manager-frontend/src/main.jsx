@@ -1,10 +1,11 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
+// main.jsx (Vite entry point)
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx'; // Note the .jsx extension
+import './index.css'; // If you have a separate index.css
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
     <App />
-  </StrictMode>,
+  </React.StrictMode>,
 )
