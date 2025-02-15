@@ -27,4 +27,20 @@ function LoginPage({ onLogin }) {
   );
 }
 
+const handleRegistrationIdLogin = async (e) => {
+  e.preventDefault();
+  try {
+      const response = await fetch('/api/login/registration', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ registrationId: registrationId }), // Send registrationId
+      });
+      const data = await response.json();
+      localStorage.setItem('token', data.token); // Store the JWT
+      // ... redirect or update state
+  } catch (error) {
+      // ... error handling
+  }
+};
+
 export default LoginPage;
