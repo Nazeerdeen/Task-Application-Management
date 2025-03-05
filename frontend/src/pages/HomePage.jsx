@@ -1,15 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
+import { z } from 'zod'
 
 const HomePage = () => {
+
+  const [formData, setFormData] = useState()
+
+  const taskSchema = z.object({
+    title: z.string().min(3, { message: "Title must be at least 3 character long." }),
+    description: z.string().min(3, { message: "Description must be at least 3 character long." }).max(500, { message: 'Lenght acceeded.' })
+  })
+
+  const handleInput = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })  
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log(formData)
+  }
+
   return (
     <div className="pt-5">
       <h1 className="text-2xl font-bold mb-5">Add Task</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="mb-5">
           <label className="block mb-2 text-sm font-medium text-gray-900 ">
             Title
           </label>
-          <input
+          <input onChange={handleInput} name="title"
             type="text"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             placeholder="Task title"
@@ -20,7 +38,7 @@ const HomePage = () => {
           <label className="block mb-2 text-sm font-medium text-gray-900 ">
             Description
           </label>
-          <textarea
+          <textarea onChange={handleInput} name="description"
             rows="4"
             className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
             placeholder="Task description..."
